@@ -194,10 +194,27 @@
   flex-wrap: wrap;
   gap: 0;
 }
+.theme_customBanners img{border-radius:.25rem}
 .theme_customBanners > .item{margin-bottom: 1rem;}
 .theme_customBanners > .item > *{width: 100%;}
-.theme_customBanners > .item:last-child{
+/* .theme_customBanners > .item:last-child{
   flex: 1 1 100%;
+} */
+@media(min-width:990px){
+  .theme_customBanners  .col-md-6 {
+    -webkit-flex: 0 0 50%;
+    -moz-box-flex: 0;
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding-right: 7.5px;
+    padding-left: 7.5px;
+    box-sizing: border-box;
+  }
+}
+
+.theme_customBanners > .item.last-item-odd {
+  flex: 1 1 100%!important;
+  max-width: unset;
 }
 
 .secao-banners .conteiner{width: 100%;}
@@ -296,11 +313,13 @@ body .bandeiras-produto > span.bandeira-promocao{
 }
 #theme_bullets a{
   text-align: center;
+  display: block;
 }
 #theme_bullets a img{
   aspect-ratio:1;
   border-radius: 50%;
   width: 100%;
+  height: 150px;
   border: 1px solid var(--borderColor);
   
 }
@@ -1010,9 +1029,41 @@ body .bandeiras-produto > span.bandeira-promocao{
   position: relative;
 }
 .float-cart > div{display: inline-block;position: relative;}
-/* Add padding to body to prevent content from being hidden behind fixed menu */
+
 @media (max-width: 991px) {
   body {
       padding-bottom: 60px;
   }
+
+  #bullets_slider{
+    align-items: center;
+    box-sizing: border-box;
+    color: #fff;
+    display: flex;
+    font-weight: 200;
+    left: 50%;
+    margin: 0 auto;
+    overflow: hidden;
+    overflow-x: scroll;
+    padding: 1em;
+    position: relative;
+    translate: -50% 0;
+    white-space: nowrap;
+    width: 100dvw;
+  }
+  #bullets_slider > ul{
+      animation: marquee 80s linear infinite running;
+      display: flex;
+  }
+
+  #bullets_slider > ul > li{
+    width: 80px;
+  }
+  #bullets_slider > ul img{
+    width: 80px;
+    height: 80px;
+  }
+  #theme_bullets{margin-top: 0;}
+  #theme_bullets a .titulo{display: block;white-space: normal;}
+  @keyframes marquee{0%{transform:translateX(0)}to{transform:translate(-50%)}}
 }
