@@ -1050,6 +1050,11 @@ body .bandeiras-produto > span.bandeira-promocao{
     translate: -50% 0;
     white-space: nowrap;
     width: 100dvw;
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+  }
+  #bullets_slider::-webkit-scrollbar {
+      display: none;
   }
   #bullets_slider > ul{
       animation: marquee 80s linear infinite running;
