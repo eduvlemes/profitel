@@ -1,3 +1,33 @@
+window.theme_section = {
+    title: "Durma em um cama 5 estrelas",
+    subtitle: "Itens essenciais para deixar sua cama como a de um hotel!",
+    items: []
+};
+theme.lang.footerTitle1 = "Nossa Empresa";
+theme.lang.footerTitle2 = "Legal e Cookies";
+theme.lang.footerTitle3 = "Pagamento e Segurança";
+theme.lang.footerTitle4 = "Newsletter";
+theme.lang.brandTitle = "Compre por Marca";
+theme.settings.sliders.brands = {
+    infinite: true,
+    slidesToShow: 6,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    prevArrow: theme.settings.sliders.config.prevArrow,
+    nextArrow: theme.settings.sliders.config.nextArrow,
+    responsive: [
+        {
+            breakpoint: 600,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1,
+                arrows : true,
+                centerMode: false
+            }
+        }
+    ]
+}
 theme.settings.avisoEstoque = 5;
 theme.settings.sliders.benefitsStripe = {
     dots: false,
@@ -60,7 +90,7 @@ theme.settings.sliders.products = {
     ]  
 }
 
-theme.stripe.content = "<div>Frete grátis nas compras acima de R$ 1.999,00</div><div>Parcele em até 6x sem juros</div><div>5% de desconto pagando via pix ou boleto</div>";
+theme.stripe.content = "<div><a href='#'>Frete grátis nas compras acima de R$ 1.999,00</a></div><div>Parcele em até 6x sem juros</div><div>5% de desconto pagando via pix ou boleto</div><a href='#'>Atendimento</a></div>";
 theme.stripe.color = "#fff";
 theme.stripe.background = "#000";
 theme.stripe.position = 1;
@@ -76,6 +106,129 @@ theme.benefitsStripe.list.push({img:'https://cdn.awsli.com.br/2792/2792604/arqui
 theme.benefitsStripe.list.push({img:'https://cdn.awsli.com.br/2792/2792604/arquivos/shield-check-thin.svg',title:'Site seguro',subtitle:'compre com segurança',link:''})
 theme.benefitsStripe.list.push({img:"https://cdn.awsli.com.br/2792/2792604/arquivos/seal-percent-thin.svg",title:'5% de desconto',subtitle:'pagando via pix ou boleto',link:''})
 
+theme.settings.footer.content1 = '';
+theme.settings.footer.content2 = '';
+theme.settings.footer.content3 = '';
+theme.settings.footer.content4 = '';
+
+theme.settings.footer.content5 = '';
+theme.settings.footer.content6 = '';
+theme.settings.footer.content7 = '';
+theme.footerLegal = '<a href="'+ theme.info.external +'" target="_blank">'+ theme.info.icon +'</a><a href="'+ theme.info.ref +'" title="Loja Integrada - Plataforma de loja virtual." target="_blank"><img loading="lazy" src="https://cdn.awsli.com.br/production/static/whitelabel/lojaintegrada/img/logo-rodape-loja-pro.png?v=bf1207d" alt="Logomarca Loja Integrada" style="opacity: 1 !important; display: inline !important; visibility: visible !important; margin: 0 !important; position: static !important; max-width: 1000px !important; max-height: 1000px !important; width: auto !important; height: auto !important;">          </a>';
+    // $('#rodape > div:last-child a').attr('href',theme.info.ref);
+    // $('#rodape > div:last-child a').before('<a href="'+ theme.info.external +'" target="_blank">'+ theme.info.icon +'</a>');        
+theme.build.footer = function(template){
+    theme.templates.footer = `
+        <div class="row-flex justify-content-between">
+            <div class="col">
+                <h4 class="toggler">Nossa Empresa</h4>
+                <div id="theme_footer-content1">${theme.footerPages}</div>
+            </div>
+            <div class="col">
+                <h4  class="toggler">Legal e Cookies</h4>
+                <div id="theme_footer-content2">${theme.footerPages}</div>
+            </div>
+            <div class="col social">
+                <h4>Siga-nos</h4>
+                <div id="theme_footer-content3">${theme.socialIcons}</div>
+            </div>
+            <div class="col">
+                <h4  class="toggler">Atendimento</h4>
+                <div id="theme_footer-content4"><div id="custom_contato"></div></div>
+            </div>
+        </div>
+        <div class="row-flex justify-content-between middle">
+            <div class="col">
+                <h4  class="toggler">Formas de Pagamento</h4>
+                <div id="theme_footer-content5">${theme.footerPayments}${theme.footerGateways}</div>
+            </div>
+            <div class="col">
+                <h4  class="toggler">Loja segura</h4>
+                <div id="theme_footer-content6"><ul>${$(theme.footerSeals).find('ul').html()}</ul></div>
+            </div>
+            <div class="col">
+                <h4>Desenvolvido por</h4>
+                <div id="theme_footer-content7">${theme.footerLegal || ''}</div>
+            </div>
+        </div>
+        <div class="row-flex justify-content-center copy">
+            <div class="col-auto text-center">
+                <p>Vendas no Cartão de Crédito sujeitas à análise e confirmação de dados, bem como análise e aprovação de sistema antifraude.
+As fotos são ambientadas e meramente ilustrativas. Cada produto é composto apenas pelos itens relacionados na descrição do produto.<br><br>
+
+© Desde 2016 - PROFITEL. Todos os direitos reservados.<br><br>
+Todos os direitos dos materiais, incluindo textos, imagens e vídeos, são protegidos por direitos autorais e propriedade intelectual. O uso não autorizado desses materiais é proibido e pode resultar em sanções legais.</p><br><p>${$('#rodape > div:last-child p').text().trim()}</p>
+            </div>
+        </div>
+    `;
+    $('#barraNewsletter').remove();
+    // Insere o conteúdo no rodapé
+    $(theme.newsletter).insertBefore('#rodape');
+    $('#rodape .institucional').html(theme.templates.footer);
+
+    document.querySelectorAll('#theme_footer-content3 a').forEach(function(anchor) {
+        // Extrai o nome da rede social do atributo "aria-label"
+        const socialName = anchor.getAttribute('aria-label').replace('Siga nos no ', '').trim();
+    
+        // Cria o elemento <span> com o nome da rede social
+        const span = document.createElement('span');
+        span.textContent = socialName;
+    
+        // Adiciona o <span> ao link
+        anchor.appendChild(span);
+    });
+    
+    $('#rodape .pagamento-selos,#rodape .pagamento-selos ~ *').remove()
+
+
+    if (theme.isMobile) {
+        // Adiciona o ícone de toggle nos títulos
+        $('#rodape .row-flex h4.toggler').each(function () {
+            const $title = $(this);
+            const $content = $title.next(); // Seleciona o conteúdo abaixo do título
+
+            // Adiciona o botão de toggle
+            $title.append('<button class="toggle-icon"><i class="fa fa-chevron-down"></i></button>');
+
+            // Esconde o conteúdo inicialmente
+            $content.hide();
+
+            // Adiciona o evento de clique no botão de toggle
+            $title.find('.toggle-icon').on('click', function (e) {
+                e.preventDefault();
+                $content.slideToggle(); // Expande ou recolhe o conteúdo
+                $(this).find('i').toggleClass('fa-chevron-down fa-chevron-up'); // Alterna o ícone
+            });
+        });
+        $('#rodape .row-flex h4:not(.toggler)').closest('.col').prependTo('#rodape .row-flex:last-child');
+    }
+    // $('#barraNewsletter, .pagamento-selos').remove();
+    // $('#rodape .institucional').html(theme.templates.footer);
+    // $('#theme_footer-content1').append(theme.footerPages);
+    // $('#theme_footer-content2').append(theme.footerCategories);
+    // $('#theme_footer-content3').append(theme.footerPayments);
+    // $('#theme_footer-content3').append(theme.footerGateways);
+    // $('#theme_footer-content3').append(theme.footerSeals);
+
+    // if(theme.settings.footer.logo) $('#theme_footer-content-institutional').append($(theme.logo).find('a').html());
+    // if(theme.settings.footer.institutional) $('#theme_footer-content-institutional').append('<p>' + theme.storeDescription + '</p>');
+    // if(theme.settings.footer.institutional && theme.settings.footer.social) $('#theme_footer-content-institutional').append('<div id="theme_footer-content-institutional-social">' + theme.socialIcons + '</div>');
+    
+    // theme.newsletter == "" ? $('#theme_footer-content4').parent('.col-auto').remove() : $('#theme_footer-content4').append(theme.newsletter);
+    
+    // $('#rodape .selos').find('.titulo').remove();
+    // $('#rodape .selos').attr('class','selos');
+    $('#custom_contato').prepend('<div class="contact"><i class="fa fa-envelope-o email"></i><div><b>Email</b><a href="mailto:vendas@profitel.com.br" target="_blank">vendas@profitel.com.br</a></div></div>');
+        
+    if(theme.storeWhatsapp){
+        $('#custom_contato').prepend('<div class="contact whatsapp"><i class="fa fa-whatsapp"></i><div><b>WhatsApp</b><a href="https://wa.me/55'+ (theme.storeWhatsapp.replaceAll('(','').replaceAll(')','').replaceAll('-','').replaceAll(' ','')) +'" target="_blank">'+ theme.storeWhatsapp +'</a></div></div>');    
+    }    
+    if(theme.storePhone){
+        //$('#custom_contato').prepend('<div class="contact phone"><i class="fa fa-phone"></i><div><b>Televendas</b><a href="tel:'+ (theme.storePhone.replaceAll('(','').replaceAll(')','').replaceAll('-','').replaceAll(' ','')) +'" target="_blank"><span>Compre pelo nosso televendas</span>'+ theme.storePhone +'</a></div></div>');    
+        $('#custom_contato .fa-clock-o + div').append('<div style="margin-top:5px"><a href="tel:'+ (theme.storePhone.replaceAll('(','').replaceAll(')','').replaceAll('-','').replaceAll(' ','')) +'" target="_blank">'+ theme.storePhone +'</a></div>');    
+    }
+};
+
 theme.build.header = function(template){
     theme.icon.sideCartClose = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>';
 
@@ -83,6 +236,8 @@ theme.build.header = function(template){
   theme.icon.search = '<i class="p-svg-ico"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg></i>';
   theme.icon.account = '<i class="p-svg-ico"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"></path></svg></i>';
   theme.icon.wishlist = '<i class="p-svg-ico"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M223,57a58.07,58.07,0,0,0-81.92-.1L128,69.05,114.91,56.86A58,58,0,0,0,33,139l89.35,90.66a8,8,0,0,0,11.4,0L223,139a58,58,0,0,0,0-82Zm-11.35,70.76L128,212.6,44.3,127.68a42,42,0,0,1,59.4-59.4l.2.2,18.65,17.35a8,8,0,0,0,10.9,0L152.1,68.48l.2-.2a42,42,0,1,1,59.36,59.44Z"></path></svg></i>';
+
+  theme.icon.atendimento = '<i class="p-svg-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M32.5,138A72,72,0,1,1,62,167.5l-27.76,8.16a8,8,0,0,1-9.93-9.93Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><path d="M163.94,80.11A72,72,0,0,1,223.5,186l8.16,27.76a8,8,0,0,1-9.93,9.93L194,215.5A72.05,72.05,0,0,1,92.06,175.89" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg></i>'
 
   theme.templates.header = `<div id="theme_header_1"><div class="conteiner-fluid"><div class="row-flex align-items-center"><div class="theme_search header_search col"><div id="theme_search"></div></div><div class="col-auto"><button type="button" id="theme_header-menu-trigger"></button></div><div class="col-auto" id="theme_header-logo"></div><div class="col-auto justify-content-center" id="theme_header-menu"></div><div class="col theme_header-functions"><ul id="theme_header-functions"></ul></div></div></div></div>
     
@@ -126,49 +281,66 @@ theme.build.header = function(template){
 
 
     if(theme.isMobile){
+       
+        
 
+    
         //bar top
-        for(let i =0; i < 6; i++){
-            $('#theme_header-stripe').append(theme.stripe.content)
-        }
-        $('#theme_header-stripe > *').wrapAll('<div class="animated"></div>');
+        // for(let i =0; i < 6; i++){
+        //     $('#theme_header-stripe').append(theme.stripe.content)
+        // }
+        // $('#theme_header-stripe > *').wrapAll('<div class="animated"></div>');
 
+        $('#theme_header-stripe').apx_slick({
+            dots: false,
+            infinite: true,
+            autoplay:true,
+            autoplaySpeed:3000,
+            speed: 300,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            prevArrow: theme.settings.sliders.config.prevArrow,
+            nextArrow: theme.settings.sliders.config.nextArrow,
+            
+        })
 
-        // Create mobile fixed menu
-        const mobileMenu = `
-            <nav class="theme_mobileMenu">
-                <ul>
-                    <li>
-                        <a href="/" title="Home">
-                            <i class="p-svg-ico"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#393232" viewBox="0 0 256 256"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z"></path></svg></i>
-                            <span>Home</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="${theme.whatsapp ? theme.whatsapp : '#'}" target="_blank" rel="noopener" title="WhatsApp">
-                            <i class="p-svg-ico"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#393232" viewBox="0 0 256 256"><path d="M187.58,144.84l-32-16a8,8,0,0,0-8,.5l-14.69,9.8a40.55,40.55,0,0,1-16-16l9.8-14.69a8,8,0,0,0,.5-8l-16-32A8,8,0,0,0,104,64a40,40,0,0,0-40,40,88.1,88.1,0,0,0,88,88,40,40,0,0,0,40-40A8,8,0,0,0,187.58,144.84ZM152,176a72.08,72.08,0,0,1-72-72A24,24,0,0,1,99.29,80.46l11.48,23L101,118a8,8,0,0,0-.73,7.51,56.47,56.47,0,0,0,30.15,30.15A8,8,0,0,0,138,155l14.61-9.74,23,11.48A24,24,0,0,1,152,176ZM128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Zm0,192a87.87,87.87,0,0,1-44.06-11.81,8,8,0,0,0-6.54-.67L40,216,52.47,178.6a8,8,0,0,0-.66-6.54A88,88,0,1,1,128,216Z"></path></svg></i>
-                            <span>WhatsApp</span>
-                        </a>
-                    </li>
-                    <li>
-                        <button type="button" class="account-trigger">
-                            ${theme.icon.account}
-                            <span>Minha Conta</span>
-                        </button>
-                    </li>
-                    <li>
-                        <a href="/carrinho/index" title="Carrinho" class="float-cart">
-                            <div>${theme.icon.cart}<span class="cart-count">${$('.carrinho .qtd-carrinho').first().text()}</span></div>
-                            <span>Carrinho</span>
+        
+
+        // // Create mobile fixed menu
+        // const mobileMenu = `
+        //     <nav class="theme_mobileMenu">
+        //         <ul>
+        //             <li>
+        //                 <a href="/" title="Home">
+        //                     <i class="p-svg-ico"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#393232" viewBox="0 0 256 256"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z"></path></svg></i>
+        //                     <span>Home</span>
+        //                 </a>
+        //             </li>
+        //             <li>
+        //                 <a href="${theme.whatsapp ? theme.whatsapp : '#'}" target="_blank" rel="noopener" title="WhatsApp">
+        //                     <i class="p-svg-ico"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#393232" viewBox="0 0 256 256"><path d="M187.58,144.84l-32-16a8,8,0,0,0-8,.5l-14.69,9.8a40.55,40.55,0,0,1-16-16l9.8-14.69a8,8,0,0,0,.5-8l-16-32A8,8,0,0,0,104,64a40,40,0,0,0-40,40,88.1,88.1,0,0,0,88,88,40,40,0,0,0,40-40A8,8,0,0,0,187.58,144.84ZM152,176a72.08,72.08,0,0,1-72-72A24,24,0,0,1,99.29,80.46l11.48,23L101,118a8,8,0,0,0-.73,7.51,56.47,56.47,0,0,0,30.15,30.15A8,8,0,0,0,138,155l14.61-9.74,23,11.48A24,24,0,0,1,152,176ZM128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Zm0,192a87.87,87.87,0,0,1-44.06-11.81,8,8,0,0,0-6.54-.67L40,216,52.47,178.6a8,8,0,0,0-.66-6.54A88,88,0,1,1,128,216Z"></path></svg></i>
+        //                     <span>WhatsApp</span>
+        //                 </a>
+        //             </li>
+        //             <li>
+        //                 <button type="button" class="account-trigger">
+        //                     ${theme.icon.account}
+        //                     <span>Minha Conta</span>
+        //                 </button>
+        //             </li>
+        //             <li>
+        //                 <a href="/carrinho/index" title="Carrinho" class="float-cart">
+        //                     <div>${theme.icon.cart}<span class="cart-count">${$('.carrinho .qtd-carrinho').first().text()}</span></div>
+        //                     <span>Carrinho</span>
                             
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        `;
+        //                 </a>
+        //             </li>
+        //         </ul>
+        //     </nav>
+        // `;
 
-        // Append mobile menu to body
-        $('body').append(mobileMenu);
+        // // Append mobile menu to body
+        // $('body').append(mobileMenu);
 
         $('.float-cart').click(function(e){
             e.preventDefault();
@@ -297,28 +469,45 @@ theme.functions.customBanners = function(ref){
         }
     });
 
-  let movie = false;
-  $('.secao-banners .banner.cheio img').each(function(){
-      let alt = $(this).attr('alt');        
-      if(alt.includes('[movie]')){
-          movie = true;
-          let iframeLink = $(this).closest('a').attr('href');
-          let iframe = $('<iframe id="theme_fullMovie"  src="https://www.youtube-nocookie.com/embed/'+ iframeLink +'?'+ (alt.includes('[autoplay]') ? 'autoplay=1&mute=1&' : '') +'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>');
-          let li = $(this).closest('li');
-          li.find('img').remove();
-          li.find('a').remove();
-          li.append(iframe);     
-          
-          let regExp = /\[proporcao:(.*?)\]/;
-          let match = regExp.exec(alt);
-          console.log(match);
-          if(match[1]){
-              $('#theme_fullMovie').css('height',(window.innerWidth * parseFloat(match[1])) + 'px');
-          }
-          
-          
-      }        
-  });
+    let movie = false;
+    $('.secao-banners .banner.cheio img').each(function(){
+        let alt = $(this).attr('alt');        
+        if(alt.includes('[movie]')){
+            movie = true;
+            let iframeLink = $(this).closest('a').attr('href');
+            let iframe = $('<iframe id="theme_fullMovie"  src="https://www.youtube-nocookie.com/embed/'+ iframeLink +'?'+ (alt.includes('[autoplay]') ? 'autoplay=1&mute=1&' : '') +'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>');
+            let li = $(this).closest('li');
+            li.find('img').remove();
+            li.find('a').remove();
+            li.append(iframe);     
+            
+            let regExp = /\[proporcao:(.*?)\]/;
+            let match = regExp.exec(alt);
+            console.log(match);
+            if(match[1]){
+                $('#theme_fullMovie').css('height',(window.innerWidth * parseFloat(match[1])) + 'px');
+            }
+            
+            
+        }        
+    });
+    $('.secao-banners .banner.cheio img').each(function(){
+        let alt = $(this).attr('alt');    
+        let img = $(this)            
+        if(alt.includes('[section]')){
+            let removeAfter = $(this).closest('li');
+            let description = $(this).closest('li').find('p.info-banner.titulo');
+            window.theme_section.items.push({
+                img: img.attr('src'),
+                title: img.attr('alt').replace(' [section]', '').trim(),
+                description: description.text().trim(),
+                button: `Comprar ${img.attr('alt').replace('[section]', '').trim()}`,
+                link: img.closest('a').attr('href'),
+            });  
+            
+            removeAfter.remove();
+        }
+    }); 
 
   //slider categorias    
   $('.secao-banners .banner.cheio img').each(function(){
@@ -455,7 +644,29 @@ $(document).ready(function(){
     // $(window).load(function(){
     //     $('.info-principal-produto').prependTo('.produto')
     // })
-    
+
+    $('.acoes-produto').each(function(){
+        $('.desconto-a-vista').html($('.desconto-a-vista').html().replace('ou',''))
+    });
+    if (theme.storeWhatsapp) {
+        // Obtém o nome do produto e o link atual da página
+        const productName = $('h1').text().trim();
+        const currentPageLink = window.location.href;
+
+        // Cria o link do WhatsApp com o número e a mensagem
+        const whatsappLink = `https://wa.me/55${theme.storeWhatsapp.replaceAll('(','').replaceAll(')','').replaceAll('-','').replaceAll(' ','')}?text=Olá, gostaria de comprar o produto *${productName}*. Aqui está o link: ${currentPageLink}`;
+
+        // Cria o botão de "COMPRAR PELO WHATSAPP"
+        const whatsappButton = `
+            <a href="${whatsappLink}" target="_blank" class="buy-whatsapp-button" style="">
+                <i class="fa fa-whatsapp"></i>
+                <span>COMPRE PELO WHATSAPP</span>
+            </a>
+        `;
+
+        // Insere o botão no local desejado (exemplo: após o título do produto)
+        $('.acoes-produto.disponivel').append(whatsappButton);
+    }
     $('.acoes-produto.disponivel').each(function() {
         let precoVenda = $(this).find('.preco-venda').text().replace('R$', '').replace(',', '.').trim();
         let precoPromocional = $(this).find('.desconto-a-vista .titulo').text().replace('R$', '').replace(',', '.').trim();
@@ -612,3 +823,160 @@ $(document).ready(function () {
         }
     });
 });
+
+//crie uma função para pegar um item do menu de acordo com o textoe adicionar uma classe especifica
+theme.functions.addClassMenu = function(texto, classe, fundo, cor) {
+    // Seleciona todos os links do menu
+    const menuItems = document.querySelectorAll('.menu.superior .nivel-um > li > a');
+
+    // Itera pelos itens do menu
+    menuItems.forEach(function(item) {
+        // Verifica se o título do link corresponde ao texto fornecido
+        if (item.getAttribute('title') === texto) {
+            // Adiciona a classe ao elemento pai <li>
+            const parentLi = item.closest('li');
+            if (parentLi) {
+                parentLi.classList.add(classe);
+                parentLi.classList.add('themed-menu-item'); // Adiciona a classe "themed-menu-item" para aplicar o estilo
+
+                // Define as variáveis CSS no elemento
+                parentLi.style.setProperty('--fundo', fundo);
+                parentLi.style.setProperty('--cor', cor);
+            }
+        }
+    });
+};
+
+//TESTE - DEPOIS COLOCAR NO SCRIPT DA LOJA
+$(document).ready(function () {
+    theme.functions.addClassMenu('MÊS ANIVERSÁRIO', 'last','#000000','#ffffff');
+    theme.functions.addRotatingBanner('Ganhe 10% OFF! Use o cupom BEMVINDO na sua primeira compra.---Frete Grátis a partir de R$399---+ 5% off no pix---Ganhe 10% OFF! Use o cupom BEMVINDO na sua primeira compra.', '#000000', '#ffffff');
+
+    $('.listagem-item').each(function() {
+        $(this).find('.desconto-a-vista').html($(this).find('.desconto-a-vista').html().replace('ou','').trim())
+        $(this).find('.desconto-a-vista').insertBefore($(this).find('[data-sell-price]'));
+    });
+
+    // Chama a função para criar a estrutura
+    if(window.theme_section.items.length > 0){
+        theme.functions.createSectionFromJSON(window.theme_section);
+    }
+    
+    if(theme.isMobile){
+        theme.userFirstname = theme.isLogged ? $('#cabecalho .pequeno.dropdown-toggle[href$="/conta/index"]').text().trim().split(' ')[1] : 'Visitante';
+        $('#theme_menu-aside').prepend('<div id="user-mobile"><a href="/conta/login">' + theme.icon.account + '<div><b>Olá, <span>' + theme.userFirstname + '</span></b>' + (theme.userFirstname == "Visitante" ? 'Faça login ou cadastre-se' : 'Minha Conta') + '</div></a></div>');
+
+        $('#theme_menu-aside .nivel-um').append('<li class="latest"><a href="/conta/favoritos/listar"><div class="custom-lnk">' + theme.icon.wishlist + '<div>Favoritos</div></div></a></li>');
+        $('#theme_menu-aside .nivel-um').append('<li class="latest"><a href="/atendimento"><div class="custom-lnk">' + theme.icon.atendimento + '<div>Atendimento</div></div></a></li>');
+    }
+
+    
+});
+
+//crie uma função para adicionar uma tarja com texto rotativo igual o theme_header-stripe do mobile logo abaixo do banner principal. a função deverá receber o texto, a cor de fundo e a cor do texto
+theme.functions.addRotatingBanner = function(texto, corFundo, corTexto) {
+    // Cria o elemento da tarja
+    const tarja = document.createElement('div');
+    tarja.className = 'theme_rotating-banner';
+    tarja.style.backgroundColor = corFundo;
+    tarja.style.color = corTexto;
+    const tarja_ = document.createElement('div');
+    tarja_.className = 'animated-stripe';
+    //separe o texto em partes por "---"
+    const partesTexto = texto.split('---');
+    // Cria os spans para cada parte do texto
+    tarja_.innerHTML = ""
+    partesTexto.forEach(function(parte) {
+        const span = document.createElement('span');
+        span.textContent = parte.trim(); // Adiciona o texto ao span
+        tarja_.appendChild(span); // Adiciona o span à tarja
+    });
+    
+    //clone o conteúdo de tarja_ 5x
+    for(let i = 0; i < 3; i++){
+        //aqui devemos pegar apenas o conteúdo html de tarja_ e adicionar ao final de tarja_
+        tarja_.innerHTML += tarja_.innerHTML;
+      
+
+    }
+
+    tarja.appendChild(tarja_);
+
+    // Adiciona a tarja ao corpo do documento ou a um contêiner específico
+    $('.secao-banners').append(tarja);
+}
+
+theme.settings.sliders.JSONSection = {
+    dots: false,
+    infinite: true,
+    autoplay:true,
+    autoplaySpeed:3000,
+    speed: 300,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    prevArrow: theme.settings.sliders.config.prevArrow,
+    nextArrow: theme.settings.sliders.config.nextArrow    
+}
+theme.functions.createSectionFromJSON = function(data) {
+    // Cria o container principal
+    const section = $('<section class="theme_custom-section"></section>');
+
+    // Adiciona o título e subtítulo
+    const title = $(`<div class="titulo-categoria"><strong>${data.title}</strong></div>`);
+    section.append(title);
+
+    const subtitle = $(`<p class="text-center">${data.subtitle}</p>`);
+    section.append(subtitle);
+
+    // Cria o container para os itens
+    const itemsContainer = $('<div class="items-container"></div>');
+
+    // Cria o nav para os títulos (bullets)
+    const navContainer = $('<div class="items-nav"></div>');
+
+    // Itera pelos itens do JSON e cria os elementos
+    $.each(data.items, function(index, item) {
+        // Cria o item do slider
+        const itemDiv = $(`<div class="item"><div class="row-flex align-items-center"><div class="col"><img src="${item.img}" class="mx-auto img-responsive" alt="${item.title}"></div><div class="col content"><h3>${item.title}</h3><p>${item.description}</p><a href="${item.link}" class="button">${item.button}</a></div></div></div>`);
+        itemsContainer.append(itemDiv);
+
+        // Cria o item do nav com o título
+        const navItem = $(`<button class="nav-item">${item.title}</button>`);
+        navItem.on('click', function () {
+            // Navega para o slide correspondente
+            $('.theme_custom-section .items-container').slick('slickGoTo', index);
+        });
+        navContainer.append(navItem);
+    });
+
+    // Adiciona o nav e o container de itens à seção
+    section.append(navContainer);
+    section.append(itemsContainer);
+
+    // Adiciona a seção ao corpo ou a um container específico
+    $('.secao-secundaria').append(section);
+
+    // Inicializa o slick slider
+    const slickInstance = $('.theme_custom-section .items-container').slick(theme.settings.sliders.JSONSection);
+
+    // Atualiza os bullets (nav items) com a classe "active" ao mudar o slide
+    slickInstance.on('afterChange', function(event, slick, currentSlide) {
+        navContainer.find('.nav-item').removeClass('active');
+        navContainer.find('.nav-item').eq(currentSlide).addClass('active');
+    });
+
+    // Define o primeiro bullet como ativo inicialmente
+    navContainer.find('.nav-item').first().addClass('active');
+};
+
+theme.watch = function(){
+    $(window).resize(function(){
+        theme.functions.sideCartScroll();
+        theme.functions.productListImageSize(theme.settings.imageSize);
+    });
+    $(window).scroll(function(){
+        theme.functions.sideCartScroll();
+    })
+    // $('#rodape > div:last-child a').attr('href',theme.info.ref);
+    // $('#rodape > div:last-child a').before('<a href="'+ theme.info.external +'" target="_blank">'+ theme.info.icon +'</a>');        
+}
