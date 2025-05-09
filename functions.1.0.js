@@ -1,8 +1,10 @@
+
 window.theme_section = {
     title: "Durma em um cama 5 estrelas",
     subtitle: "Itens essenciais para deixar sua cama como a de um hotel!",
     items: []
 };
+theme.lang.searchPlaceholder = "Faça sua pesquisa..."
 theme.lang.footerTitle1 = "Nossa Empresa";
 theme.lang.footerTitle2 = "Legal e Cookies";
 theme.lang.footerTitle3 = "Pagamento e Segurança";
@@ -218,24 +220,29 @@ Todos os direitos dos materiais, incluindo textos, imagens e vídeos, são prote
     
     // $('#rodape .selos').find('.titulo').remove();
     // $('#rodape .selos').attr('class','selos');
+    if($('.pagina-carrinho').length > 0 && theme.isMobile){
+        $('#rodape').prepend('<div id="custom_contato"></div>');
+        theme.storeWhatsapp = '(11) 99999-9999';
+    }
+    $('#custom_contato').prepend('<div class="contact"><i class="fa fa-clock-o atendimento"></i><div><b>Atendimento</b><small style="font-weight:600;display:block;margin:.5rem 0 .25rem 0;">Segunda à Sexta</small>08:30h às 11:30 - 13:15h às 17h30h</div></div>'); 
     $('#custom_contato').prepend('<div class="contact"><i class="fa fa-envelope-o email"></i><div><b>Email</b><a href="mailto:vendas@profitel.com.br" target="_blank">vendas@profitel.com.br</a></div></div>');
-        
+       
     if(theme.storeWhatsapp){
         $('#custom_contato').prepend('<div class="contact whatsapp"><i class="fa fa-whatsapp"></i><div><b>WhatsApp</b><a href="https://wa.me/55'+ (theme.storeWhatsapp.replaceAll('(','').replaceAll(')','').replaceAll('-','').replaceAll(' ','')) +'" target="_blank">'+ theme.storeWhatsapp +'</a></div></div>');    
     }    
-    if(theme.storePhone){
-        //$('#custom_contato').prepend('<div class="contact phone"><i class="fa fa-phone"></i><div><b>Televendas</b><a href="tel:'+ (theme.storePhone.replaceAll('(','').replaceAll(')','').replaceAll('-','').replaceAll(' ','')) +'" target="_blank"><span>Compre pelo nosso televendas</span>'+ theme.storePhone +'</a></div></div>');    
-        $('#custom_contato .fa-clock-o + div').append('<div style="margin-top:5px"><a href="tel:'+ (theme.storePhone.replaceAll('(','').replaceAll(')','').replaceAll('-','').replaceAll(' ','')) +'" target="_blank">'+ theme.storePhone +'</a></div>');    
-    }
+    // if(theme.storePhone){
+    //     //$('#custom_contato').prepend('<div class="contact phone"><i class="fa fa-phone"></i><div><b>Televendas</b><a href="tel:'+ (theme.storePhone.replaceAll('(','').replaceAll(')','').replaceAll('-','').replaceAll(' ','')) +'" target="_blank"><span>Compre pelo nosso televendas</span>'+ theme.storePhone +'</a></div></div>');    
+    //     $('#custom_contato').append('<div style="margin-top:5px"><a href="tel:'+ (theme.storePhone.replaceAll('(','').replaceAll(')','').replaceAll('-','').replaceAll(' ','')) +'" target="_blank">'+ theme.storePhone +'</a></div>');    
+    // }
 };
 
 theme.build.header = function(template){
     theme.icon.sideCartClose = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>';
 
-  theme.icon.cart = '<i class="p-svg-ico cart"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V72H40V56Zm0,144H40V88H216V200Zm-40-88a48,48,0,0,1-96,0,8,8,0,0,1,16,0,32,32,0,0,0,64,0,8,8,0,0,1,16,0Z"></path></svg></i>';
+  theme.icon.cart = '<i class="p-svg-ico cart"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 859 859.312" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M621.504 805.688H35.82c-1.175 0-2.355-.055-3.52-.141-22.253-2.05-38.616-21.676-36.6-43.785l48.835-537.07c1.895-20.883 19.13-36.633 40.102-36.633h488.05c20.938.023 38.168 15.773 40.07 36.632l48.829 537.07c.105 1.145.156 2.387.156 3.622.012 22.199-18.027 40.289-40.238 40.304zM84.637 214.91c-6.985 0-12.727 5.246-13.356 12.207L22.45 764.203c-.68 7.367 4.785 13.91 12.156 14.578l1.215.055h585.668c7.399-.016 13.403-6.031 13.403-13.441l-48.88-538.262c-.628-6.961-6.37-12.207-13.35-12.223zm136.61 67.172c-.02-7.406-6.067-13.45-13.458-13.465l.063-26.851c22.125.05 40.183 18.109 40.246 40.238zm0 0" fill="#000000" opacity="1" data-original="#000000"></path><path d="M449.5 322.324c-22.21 0-40.281-18.066-40.281-40.281 0-22.211 18.066-40.277 40.281-40.277 22.21 0 40.277 18.066 40.277 40.277 0 22.215-18.066 40.281-40.277 40.281zm0-53.707c-7.406 0-13.43 6.02-13.43 13.426 0 7.414 6.024 13.43 13.43 13.43 7.41 0 13.426-6.016 13.426-13.43 0-7.406-6.016-13.426-13.426-13.426zM207.816 322.324c-22.207 0-40.277-18.066-40.277-40.281 0-22.211 18.066-40.277 40.277-40.277v26.851c-7.398 0-13.425 6.016-13.425 13.426 0 7.406 6.027 13.43 13.425 13.43 7.403 0 13.43-6.024 13.43-13.43h26.852c0 22.215-18.067 40.281-40.282 40.281zm0 0" fill="#000000" opacity="1" data-original="#000000"></path><path d="M221.246 282.082c-.02-7.406-6.066-13.45-13.457-13.465l.063-26.851c22.125.05 40.183 18.109 40.246 40.238zm0 0" fill="#000000" opacity="1" data-original="#000000"></path><path d="M462.926 255.191H436.07v-120.84c0-59.226-48.183-107.413-107.41-107.413-59.226 0-107.414 48.187-107.414 107.414v120.84h-26.855v-120.84c0-74.04 60.23-134.27 134.27-134.27 74.03 0 134.265 60.23 134.265 134.27zm0 0" fill="#000000" opacity="1" data-original="#000000"></path></g></svg></i>';
   theme.icon.search = '<i class="p-svg-ico"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg></i>';
-  theme.icon.account = '<i class="p-svg-ico"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"></path></svg></i>';
-  theme.icon.wishlist = '<i class="p-svg-ico"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M223,57a58.07,58.07,0,0,0-81.92-.1L128,69.05,114.91,56.86A58,58,0,0,0,33,139l89.35,90.66a8,8,0,0,0,11.4,0L223,139a58,58,0,0,0,0-82Zm-11.35,70.76L128,212.6,44.3,127.68a42,42,0,0,1,59.4-59.4l.2.2,18.65,17.35a8,8,0,0,0,10.9,0L152.1,68.48l.2-.2a42,42,0,1,1,59.36,59.44Z"></path></svg></i>';
+  theme.icon.account = '<i class="p-svg-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><circle cx="128" cy="96" r="64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><path d="M32,216c19.37-33.47,54.55-56,96-56s76.63,22.53,96,56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/></svg></i>';
+  theme.icon.wishlist = '<i class="p-svg-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M128,224l89.36-90.64a50,50,0,1,0-70.72-70.72L128,80,109.36,62.64a50,50,0,0,0-70.72,70.72Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/></svg></i>';
 
   theme.icon.atendimento = '<i class="p-svg-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M32.5,138A72,72,0,1,1,62,167.5l-27.76,8.16a8,8,0,0,1-9.93-9.93Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><path d="M163.94,80.11A72,72,0,0,1,223.5,186l8.16,27.76a8,8,0,0,1-9.93,9.93L194,215.5A72.05,72.05,0,0,1,92.06,175.89" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg></i>'
 
@@ -849,6 +856,7 @@ theme.functions.addClassMenu = function(texto, classe, fundo, cor) {
 
 //TESTE - DEPOIS COLOCAR NO SCRIPT DA LOJA
 $(document).ready(function () {
+    theme.storeWhatsapp = '(55) 99999-9999';
     theme.functions.addClassMenu('MÊS ANIVERSÁRIO', 'last','#000000','#ffffff');
     theme.functions.addRotatingBanner('Ganhe 10% OFF! Use o cupom BEMVINDO na sua primeira compra.---Frete Grátis a partir de R$399---+ 5% off no pix---Ganhe 10% OFF! Use o cupom BEMVINDO na sua primeira compra.', '#000000', '#ffffff');
 
