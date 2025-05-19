@@ -1616,7 +1616,7 @@ body .bandeiras-produto > span, body .bandeiras-produto > span.bandeira-promocao
 
 .produto .acoes-produto .comprar .qtde-adicionar-carrinho > button > svg,
 .produto .acoes-produto .comprar .qtde-adicionar-carrinho > button > svg path{
-  stroke: var(--cor-principal)!important;
+  fill: var(--cor-principal)!important;
 }
 .tabela-carrinho img{width: 100%;min-width: 100%;}
 #rodape .contact i{border: 0;box-shadow: 0px 0px 0px;}
