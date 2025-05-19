@@ -883,7 +883,10 @@ theme.functions.addClassMenu = function(texto, classe, fundo, cor) {
 
 //TESTE - DEPOIS COLOCAR NO SCRIPT DA LOJA
 $(document).ready(function () {
-    
+    theme.storeWhatsapp = '(55) 99999-9999';
+    theme.functions.addClassMenu('MÊS ANIVERSÁRIO', 'last','#000000','#ffffff');
+    theme.functions.addRotatingBanner('Ganhe 10% OFF! Use o cupom BEMVINDO na sua primeira compra.---Frete Grátis a partir de R$399---+ 5% off no pix---Ganhe 10% OFF! Use o cupom BEMVINDO na sua primeira compra.', '#000000', '#ffffff');
+
     $('.listagem-item').each(function() {
         $(this).find('.desconto-a-vista').html($(this).find('.desconto-a-vista').html().replace('ou','').trim())
         $(this).find('.desconto-a-vista').insertBefore($(this).find('[data-sell-price]'));
@@ -902,7 +905,14 @@ $(document).ready(function () {
         $('#theme_menu-aside .nivel-um').append('<li class="latest"><a href="/atendimento"><div class="custom-lnk">' + theme.icon.atendimento + '<div>Atendimento</div></div></a></li>');
     }
 
-   
+    window.tags = [
+        {
+            id_categoria:23322354,
+            texto: 'MAIS VENDIDOS',
+            cor: 'white',
+            fundo: 'orange',
+        }
+    ]
     theme.functions.selos();
     
 });
