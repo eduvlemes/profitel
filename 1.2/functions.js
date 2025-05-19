@@ -625,6 +625,29 @@ theme.functions.productListActions = function(){
   // });
   $('.listagem-item .acoes-produto, .listagem-item .acoes-produto-responsiva').remove();    
 }
+
+
+theme.functions.productListImageSize = function(param){
+    if(theme.settings.productListImageFill){
+        $('.listagem-item').addClass('theme-imageFill');
+    }
+    
+    let h = $('.listagem-item').first().find('.imagem-produto').innerWidth() * param;
+    $('.listagem-item .imagem-produto').css('height',h + 'px');
+    $('.listagem-item .imagem-produto').css('max-height',h + 'px');
+    $('.listagem-item .imagem-produto').css('min-height',h + 'px');
+    
+
+
+    $('.listagem-item .imagem-produto').each(function(){
+        $(this).find('img').each(function(){
+            let url = $(this).attr('src').replace('300x300/','500x500/').replace('400x400/','600x600/');
+            $(this).attr('src',url);
+        })
+    })
+
+    //$('.listagem-item .imagem-produto').css('max-height','unset');
+}
     
 theme.functions.customBanners();
 
