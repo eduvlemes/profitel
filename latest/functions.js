@@ -919,7 +919,7 @@ theme.functions.addRotatingBanner = function(texto, corFundo, corTexto) {
 
     // }
 
-    // tarja.appendChild(tarja_);
+     tarja.appendChild(tarja_);
 
     // Adiciona a tarja ao corpo do documento ou a um contêiner específico
     $('.secao-banners').append(tarja);
