@@ -662,9 +662,9 @@ $(document).ready(function(){
     //     $('.info-principal-produto').prependTo('.produto')
     // })
 
-    // $('.acoes-produto').each(function(){
-    //     $('.acoes-produto .desconto-a-vista').html($('.desconto-a-vista').html().replace('ou',''))
-    // });
+    $('.acoes-produto').each(function(){
+        $(this).find('.desconto-a-vista').html($(this).find('.desconto-a-vista').html().replace('ou',''))
+    });
     if (theme.storeWhatsapp) {
         // Obtém o nome do produto e o link atual da página
         const productName = $('h1').text().trim();
@@ -684,20 +684,20 @@ $(document).ready(function(){
         // Insere o botão no local desejado (exemplo: após o título do produto)
         $('.acoes-produto.disponivel').append(whatsappButton);
     }
-    // $('.acoes-produto.disponivel').each(function() {
-    //     let precoVenda = $(this).find('.preco-venda').text().replace('R$', '').replace(',', '.').trim();
-    //     let precoPromocional = $(this).find('.desconto-a-vista .titulo').text().replace('R$', '').replace(',', '.').trim();
+    $('.acoes-produto.disponivel').each(function() {
+        let precoVenda = $(this).find('.preco-venda').text().replace('R$', '').replace(',', '.').trim();
+        let precoPromocional = $(this).find('.desconto-a-vista .titulo').text().replace('R$', '').replace(',', '.').trim();
 
-    //     if (precoVenda && precoPromocional) {
-    //         let venda = parseFloat(precoVenda);
-    //         let promocional = parseFloat(precoPromocional);
+        if (precoVenda && precoPromocional) {
+            let venda = parseFloat(precoVenda);
+            let promocional = parseFloat(precoPromocional);
 
-    //         if (venda > promocional) {
-    //             let desconto = Math.round(((venda - promocional) / venda) * 100);
-    //             $(this).find('.desconto-a-vista').append(`<span class="desconto">${desconto}% OFF</span>`);
-    //         }
-    //     }
-    // });
+            if (venda > promocional) {
+                let desconto = Math.round(((venda - promocional) / venda) * 100);
+                $(this).find('.desconto-a-vista').append(`<span class="desconto">${desconto}% OFF</span>`);
+            }
+        }
+    });
   }
 
   if($('.pagina-carrinho').length > 0){
